@@ -1,0 +1,19 @@
+FROM golang:latest AS builder
+
+WORKDIR /app
+
+COPY main.go ./
+
+RUN go build main.go
+
+FROM scratch
+
+WORKDIR /app2
+
+COPY --from=builder /app .
+
+CMD ["./main"]
+
+
+
+
